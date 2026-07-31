@@ -42,9 +42,9 @@ Resolve with product/security ownership before RFP submission. Sources below are
 
 Fully implemented (Security Overview) vs not available / under development (auth response notes, enterprise SaaS annexure) vs “can be built” (implementation questionnaire).
 
-## 7. BYOK
+## 7. BYOK / customer-managed keys
 
-Not supported (enterprise cloud architecture response) vs can be supported via OCI KMS with cost (enterprise SaaS annexure).
+**Resolved:** Customer-managed encryption keys (BYOK) are **not allowed**. Keys are Marmin-managed via KMS only. Earlier annexure wording that suggested OCI customer-managed keys is superseded.
 
 ## 8. Implementation timeline
 
