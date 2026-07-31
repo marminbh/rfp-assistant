@@ -13,7 +13,7 @@
 
 - Encryption keys managed by Marmin via KMS
 - Key rotation enforced every **90 days**
-- **BYOK:** conflicting — enterprise cloud architecture response states platform does **not** support BYOK; enterprise SaaS annexure states customer-managed keys **can** be supported via OCI KMS with possible extra cost. See `rfp/conflicts-and-caveats.md`.
+- **Customer-managed keys / BYOK:** **not allowed**. Keys are Marmin-managed via KMS only.
 
 ## Application / API security
 

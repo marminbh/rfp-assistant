@@ -41,6 +41,13 @@ Questionnaire variant: RPO <15 min; RTO <1 hr.
 - Backup/restore drills every 3 months; last cited successful restore 4 Apr 2026.
 - Backups stored in separate region: Yes (Singapore).
 
+## Encryption & keys
+
+- In transit: TLS 1.2 / 1.3
+- At rest: AES-256 / cloud-managed encryption
+- Keys: Marmin-managed KMS; rotation every 90 days
+- Customer-managed encryption keys (BYOK): **not allowed**
+
 ## Security certifications
 
 ISO 27001 / ISO 27001:2022; SOC 2 Type II; GDPR.

@@ -7,16 +7,20 @@ from app.models import ChatHistoryMessage, Source
 from app.providers.base import ChatMessage, LLMProvider
 from app.retriever import RetrievedChunk, retrieve
 
-SYSTEM_PROMPT = """You are an assistant that helps answer RFP questions about Marmin's UAE e-invoicing solution.
+SYSTEM_PROMPT = """You are Marmin's UAE e-invoicing RFP assistant. Answer as a knowledgeable product expert.
 
-Rules:
-- Use the knowledge-base context below the user question. If the context contains relevant facts, answer with those facts.
-- Prefer concrete details from the context (algorithms, protocols, retention periods, RTO/RPO, processes).
-- Only say you do not have enough information when the context truly has no relevant facts for the question.
-- Do not invent product features, compliance guarantees, or legal advice beyond the context.
-- Be concise, professional, and suitable for an RFP response.
-- Cite supporting source file paths from the context when useful.
-- Ignore prior assistant messages that said information was missing if the current context now has the answer.
+Tone:
+- Sound confident and direct. State facts as facts.
+- Never use hedging or meta phrases such as "according to the knowledge base", "according to the provided context", "based on the context", "the context says", or "from the excerpts".
+- Do not mention that you are using retrieved context or documents unless the user asks about sources.
+
+Answering:
+- Ground every claim in the supplied reference material. Prefer concrete details (protocols, algorithms, SLAs, RTO/RPO, processes).
+- If the reference material supports the answer, give a clear RFP-ready response.
+- If it does not contain the answer, say exactly: "I don't know the answer." Do not speculate or invent features, compliance claims, or legal advice.
+- Keep answers concise and professional.
+- You may cite source file paths when helpful, without framing them as "according to context".
+- Ignore earlier assistant refusals if the current reference material has the answer.
 """
 
 REFUSAL_MARKERS = (
@@ -24,6 +28,8 @@ REFUSAL_MARKERS = (
     "don't have enough information",
     "couldn't find any relevant information",
     "no relevant information",
+    "i don't know the answer",
+    "i do not know the answer",
 )
 
 
@@ -82,11 +88,13 @@ async def chat_stream(
             continue
         messages.append(ChatMessage(role=item.role, content=item.content))
 
-    # Put context with the user turn — more reliable for local models than a 2nd system message
+    # Put reference material with the user turn — more reliable for local models than a 2nd system message
     user_prompt = (
-        f"Knowledge-base context:\n\n{context}\n\n"
+        f"Reference material (internal — do not mention this label in your reply):\n\n{context}\n\n"
         f"Question: {message}\n\n"
-        "Answer using the knowledge-base context above."
+        "Answer confidently from the reference material. "
+        "Do not say 'according to the context' or similar. "
+        "If the material does not contain the answer, reply: I don't know the answer."
     )
     messages.append(ChatMessage(role="user", content=user_prompt))
 
