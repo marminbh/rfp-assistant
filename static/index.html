@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RFP Assistant</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div>
+          <h1>RFP Assistant</h1>
+          <p class="subtitle">UAE e-invoicing knowledge Q&amp;A</p>
+        </div>
+        <div class="header-actions">
+          <span id="providerBadge" class="badge">…</span>
+          <button id="reindexBtn" type="button" class="secondary">Re-index knowledge base</button>
+        </div>
+      </header>
+
+      <main id="messages" class="messages" aria-live="polite"></main>
+
+      <footer class="composer">
+        <form id="chatForm">
+          <textarea
+            id="messageInput"
+            rows="2"
+            placeholder="Ask an RFP question about UAE e-invoicing…"
+            required
+          ></textarea>
+          <button id="sendBtn" type="submit">Send</button>
+        </form>
+        <p id="status" class="status"></p>
+      </footer>
+    </div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

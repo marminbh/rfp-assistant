@@ -1,0 +1,77 @@
+# RFP FAQ — Common Questionnaire Answers
+
+Use with `conflicts-and-caveats.md` before locking numbers.
+
+## Availability & SLA
+
+- Target availability: **99.9%+** (most docs); some questionnaires state **99.99%**.
+- Auto-scaling: Yes.
+- Planned downtime: ~1 min/week (implementation questionnaire).
+
+## Data residency
+
+- Production: UAE — **Abu Dhabi** (current matrix).
+- Replica: **Mumbai**.
+- DR: **Singapore** (residency matrix); BC overview also describes **Mumbai** app DR.
+- Hosting provider: **Oracle Cloud**. AWS used for encrypted backup storage.
+- Arbitrary customer DC selection: **not** in standard SaaS.
+
+## Tenancy
+
+- Standard: multi-tenant logical isolation.
+- Dedicated single-tenant available commercially.
+- Multi-entity in one organization instance: Yes.
+
+## RPO / RTO (pick carefully)
+
+Common UAE SaaS answer set:
+
+- RTO ≤ 1 hour; RPO near-zero / no data loss for committed transactions; DR tested quarterly.
+
+Alternate conservative annexure answer:
+
+- RTO ≤ 4 hours; RPO ≤ 1 hour; backup/restore DR.
+
+Questionnaire variant: RPO <15 min; RTO <1 hr.
+
+## Backups
+
+- Continuous multi-region DB replication + automated backups.
+- S3 encrypted hourly backups, 15-day retention (residency matrix).
+- Backup/restore drills every 3 months; last cited successful restore 4 Apr 2026.
+- Backups stored in separate region: Yes (Singapore).
+
+## Security certifications
+
+ISO 27001 / ISO 27001:2022; SOC 2 Type II; GDPR.
+
+## Authentication
+
+- Email/password + MFA (email OTP): Yes.
+- SSO/SAML/OIDC/Entra ID: conflicting — treat as roadmap/not GA unless Security Overview is the approved source for that bid.
+- IP whitelisting: configurable.
+- Audit/user activity logs: Yes.
+
+## Integrations
+
+- API (documented), SFTP bulk, WebApp, AI PDF extraction, middleware platforms: Yes.
+- Docs: https://docs.ae.marmin.ai/
+
+## Exit
+
+Full extraction (XML, PDF, CSV/XLSX, structured dumps), SFTP delivery, certified purge after confirmation; regulatory retention may block early deletion.
+
+## Implementation / company
+
+- Timeline: 2–6 weeks typical, or up to ~4 months for larger enterprise plans.
+- Local team: Dubai; also Bangalore development/support.
+- Employees: 100+.
+- Support by Principal; portal https://marmin.ai.
+
+## Incidents (recent enterprise cloud response)
+
+No material confidentiality breach; no ransomware; no regulatory non-compliance.
+
+## Audit rights
+
+Customer audit rights, regulatory inspections, evidence sharing, log export, VA/PT coordination — subject to governance, tenant isolation, CSP shared-responsibility limits.

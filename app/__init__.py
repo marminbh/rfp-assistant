@@ -1,0 +1,1 @@
+"""UAE E-Invoicing RFP Assistant."""
