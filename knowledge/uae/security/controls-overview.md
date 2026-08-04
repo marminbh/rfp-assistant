@@ -18,13 +18,16 @@
 ## Application / API security
 
 - Short-lived JWT authentication
-- RBAC authorization
+- RBAC authorization; approved roles/rights matrix
 - Rate limiting, IP allowlisting, replay protection
 - WAF on public-facing apps
 - HTTPS FQDN with TLS certificates; EV certs for public sites
 - Session controls: terminate on logout; session ID changed each login; session not allowed on multiple systems/devices
 - Idle session timeout ≤ 15 minutes
 - Maker-checker for critical user admin / transaction processing
+- Input validation, buffer-overflow protections, and file-upload validation (size/type/format)
+- Source-code access restricted; pre-prod malicious-code review via automated scanning
+- Full checklist detail: `application-security-checklist.md` (v2.3 Compliant / Not Applicable rows)
 
 ## Infrastructure security
 

@@ -55,9 +55,12 @@ ISO 27001 / ISO 27001:2022; SOC 2 Type II; GDPR.
 ## Authentication
 
 - Email/password + MFA (email OTP): Yes.
+- Password policy (checklist): admin expiry 30 days; user 90 days; history 6; min length 8; lockout after 6 failures / 30 min; idle timeout ≤15 min.
+- Session: terminate on logout; session ID rotated each login; not reusable across multiple devices.
 - SSO/SAML/OIDC/Entra ID: conflicting — treat as roadmap/not GA unless Security Overview is the approved source for that bid.
 - IP whitelisting: configurable.
-- Audit/user activity logs: Yes.
+- Audit/user activity logs: Yes; SIEM integration for security events.
+- Application security checklist v2.3: see `../security/application-security-checklist.md`.
 
 ## Integrations
 

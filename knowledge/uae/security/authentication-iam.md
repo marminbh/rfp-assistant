@@ -15,6 +15,19 @@
 - Inactive accounts dormant/disabled after 90 days
 - Force password change on first login (local auth)
 - MFA OTP parameters: ≥5 digits; expiry 5 minutes or resend; separate verified medium SMS or Email
+- Idle session timeout ≤ 15 minutes
+- Session ID changed on each login; session not allowed across multiple systems/devices with the same session ID
+- Full session termination on logout / browser close; no resume via back-button / cached authenticated pages
+- Maker-checker for user administration and critical transaction processing
+- Entitlement reports include inactivity 45+ days, failed logins, last login/modification (see `application-security-checklist.md`)
+- Autocomplete disabled on password and other sensitive input fields
+- External integrations authenticate with randomly generated access tokens (not by forwarding end-user credentials)
+
+## Not applicable (checklist)
+
+- Biometric authentication (stored biometrics) — not used
+- Customer LAM-only application administration handover — SaaS platform admin model
+- Dual-control split-knowledge for interactive system IDs — not applicable to current posture
 
 ## SSO / federation — conflicting statements
 
