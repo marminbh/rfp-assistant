@@ -13,8 +13,16 @@
 - Re-authenticate before critical/sensitive operations
 - No Basic or Digest authentication (application or API)
 - Unique non-descriptive usernames/IDs; server-side authentication state
-- RBAC; limit screen access by access rights
-- Separate RBAC roles for account-admin vs system-admin/ops
+- RBAC; limit screen access by access rights; enquiry vs maintenance access types at screen level
+- Separate RBAC roles for account-admin vs system-admin/ops; user groups and function groups
+- Maker-checker for financial transactions and static data changes; multiple authorization levels by amount ranges where configured
+- Disable users and revoke access rights; force password change after first login and password reset
+- Self-service password change; complex password policy (length, age, lockout, complexity, history)
+- Display date/time of previous successful login and unsuccessful attempts since last success
+- Do not reveal whether username or password was wrong on failed login; do not display passwords in clear text
+- Credentials stored hashed/encrypted — never plaintext; no printing/extracting passwords in clear
+- Restrict access by source IP / machine / digital certificate where configured
+- Concurrent sessions from multiple sources controllable per policy
 - Local identity management for non-directory users (e.g. external/dealer-style users) where configured
 - Strong API auth via established protocols (OAuth 2.0, OpenID Connect); prefer central IdP over APIs handling credentials directly
 - JWT signature verification every request; reject `none`/unexpected algs; validate exp/nbf/iss/aud; short lifetimes; rotate signing keys

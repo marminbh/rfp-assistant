@@ -15,7 +15,8 @@
 | Secrets | Secure vault / HashiCorp Vault / HSM / KMS patterns |
 | Virtualization | VMware (supported, including SQL Server on VMware) |
 | OS (proposed sizing) | Ubuntu 26.04 LTS |
-| Browsers | Microsoft Edge, Google Chrome |
+| Browsers | Microsoft Edge and Google Chrome (mandatory); Apple Safari supported; Firefox / Opera optional |
+| API docs | https://docs.om.marmin.ai |
 
 ## Environments
 

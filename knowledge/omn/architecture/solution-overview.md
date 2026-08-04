@@ -11,15 +11,18 @@
 
 ## Architecture principles
 
-- N-tier, open, and scalable architecture
-- Microservice architecture on Kubernetes
-- Cluster architecture with failover
+- N-tier, open, and scalable architecture; modular across offered modules
+- Microservice architecture on Kubernetes (container-based, cloud-native)
+- SaaS / PaaS / IaaS / on-prem; cloud-ready and cloud-agnostic
+- Cluster architecture with failover; no single point of failure design; HA and DR
+- Straight-through processing (STP) and parameterization across modules
+- Real-time processing and data synchronisation where configured
 - Single unified data model without unnecessary data duplication
 - Thin-client open standards; no proprietary client software
-- Scalable for growing users and large data volumes
-- Portable / migratable across environments
+- Horizontal and vertical scalability; high throughput (millisecond-class response targets where sized)
+- Portable / migratable across environments; hardware-agnostic
 - Does not rely on undisclosed third-party technology for core operations; open-source components include Kubernetes and Docker
-- DevOps support and Agile delivery processes
+- DevOps support and Agile delivery processes; continuous platform upgrade
 
 ## Typical deployment pattern
 

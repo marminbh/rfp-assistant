@@ -22,7 +22,7 @@ Use these caveats when answering RFPs. Prefer section docs under `product/`, `ar
 - Compatibility with a named customer security / backup tool stack
 - Full infrastructure log shipping to customer SIEM (app audit logging is standard)
 - Point-in-time production restore (validate with customer backup tooling)
-- Multi-format security/ops reports beyond CSV/XLSX (PDF/DOC/XML reporting asked in some RFPs is partial)
+- DOC/XML report formats beyond standard invoice dashboard exports (Excel/CSV/PDF for invoice reports are supported)
 
 ## Roadmap / future (FUT)
 
@@ -54,8 +54,9 @@ Use these caveats when answering RFPs. Prefer section docs under `product/`, `ar
 ## Partial / nuanced (product)
 
 - Personalization: Arabic language customization supported; broader personalization not supported
-- Import/export: Excel/CSV supported; PDF customizable; XML future
-- Reports: CSV/XLSX standard; broader formats may be partial depending on report type
+- Import/export: Excel/CSV and PDF artifacts supported; Peppol invoice XML supported; generic XML bulk import outside Peppol may be future/engagement-specific
+- Invoice dashboards/reports: Excel, CSV, and PDF export supported
+- Infrastructure sizing: use engagement BOQ; reference proposals exist at 7/5 and 11/9 servers — do not treat either as universal
 
 ## Customer-process items (not product defects)
 

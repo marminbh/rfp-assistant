@@ -27,6 +27,8 @@ Approved patterns include:
 ## Key management
 
 - Encryption keys stored and managed via a secure key management approach (e.g. HashiCorp Vault, HSM, or cloud KMS)
+- HSM-backed encryption of credentials and sensitive data supported where applicable
+- Out-of-band key / certificate management supported
 - Data encryption keys (DEK) encrypted by a key encryption key (KEK); keys stored separately from ciphertext
 - Keys protected at rest and in transit; rotated periodically per policy; revoked immediately if compromised
 - Secrets, API keys, and tokens never hardcoded or exposed in URLs
