@@ -43,7 +43,7 @@ See [`.env.example`](.env.example).
 | `OLLAMA_CHAT_MODEL` | `llama3.2` | |
 | `OLLAMA_EMBED_MODEL` | `nomic-embed-text` | |
 | `GEMINI_API_KEY` | _(empty)_ | Required for Gemini |
-| `GEMINI_CHAT_MODEL` | `gemini-3-flash` | |
+| `GEMINI_CHAT_MODEL` | `gemini-3.6-flash` | |
 | `GEMINI_EMBED_MODEL` | `gemini-embedding-001` | |
 | `KB_PATH` | `./knowledge` | |
 | `CHROMA_PATH` | `./data/chroma` | gitignored |

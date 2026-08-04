@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     ollama_embed_model: str = "nomic-embed-text"
 
     gemini_api_key: str = ""
-    gemini_chat_model: str = "gemini-3-flash"
+    gemini_chat_model: str = "gemini-3.6-flash"
     gemini_embed_model: str = "gemini-embedding-001"
 
     kb_path: Path = ROOT_DIR / "knowledge"
