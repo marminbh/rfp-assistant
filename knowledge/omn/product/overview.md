@@ -5,8 +5,15 @@ Marmin provides an Oman e-invoicing platform for electronic invoice creation, va
 ## Positioning
 
 - Delivered primarily as a managed SaaS platform, with dedicated/single-tenant and hybrid/on-prem options available for enterprise needs.
-- Aligned with Oman e-invoicing workflows and Peppol network exchange.
+- Aligned with Oman e-invoicing workflows, Peppol network exchange, and Oman Tax Authority (OTA) requirements.
 - Supports sale and purchase document flows, party/profile management, and partner operations.
+
+## Oman tax authority alignment
+
+- Electronic invoicing using the **5-Corner Model** for secure, standardized invoice exchange between businesses, service providers, and the **Oman Tax Authority (OTA)**.
+- Upgrade / align existing **XVAT** (VAT) systems to OTA requirements based on the OTA **Data Dictionary**.
+- Issue VAT invoices electronically to customers in the OTA-approved format via an **OTA-approved ASP** (Authenticated Service Provider).
+- E-invoicing integrated with XVAT to meet OTA requirements and issue **validated tax invoices**.
 
 ## Out-of-the-box capabilities
 
@@ -18,6 +25,10 @@ Marmin provides an Oman e-invoicing platform for electronic invoice creation, va
 - Reporting and audit logging
 - Role-based access control
 - Secure document storage (PDF/XML artifacts)
+- Maker-checker for approvals and admin setup
+- Arabic language interface
+- Configurable customer logo
+- Role-based dashboards with user-driven parameterization
 
 ## Go-to-market notes
 

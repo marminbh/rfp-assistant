@@ -1,18 +1,29 @@
-# Oman Security Controls — Starter
+# Oman Security Controls — Overview
 
-Platform security for Oman deployments follows Marmin’s managed SaaS / dedicated-cloud security baseline (TLS in transit, encryption at rest, RBAC, audit logging, vulnerability management).
+Platform security for Oman deployments follows Marmin’s managed SaaS / dedicated-cloud security baseline.
 
-## Confirmed for RFP use (OMN KB)
+## Confirmed for RFP use
 
-- Authenticated API access
-- Role-based access control
-- Audit logging of document and admin actions
-- Peppol transmission over the configured network path
+- Authenticated API access; RBAC; audit logging
+- Peppol / OTA transmission over the configured network path
+- Oman PDPL compliance
+- CBO security-gap certification letter available
+- OWASP-aligned secure coding practices supported across application development controls
+- OWASP API Security Top 10 (2023) controls supported, with one customization note on API-key-only auth
+- TLS 1.2 minimum (TLS 1.3 preferred); HSTS; no insecure TLS fallback
+- Integration with SIEM, SCM, DAM, PAM, and IAM controls where required
+- Full comprehensive audit trail; maker-checker
 
-## Not yet documented for Oman in this KB
+## Customization / caveats
 
-- Exact production data residency region(s)
-- Oman-specific DR topology and RTO/RPO numbers
-- Customer-managed encryption keys / BYOK policy for Oman bids
+- LDAP / AD-only authentication: customization required
+- Using API keys as the sole authentication factor: customization required (treat keys as identifiers; rotate and store securely)
+- Customer-managed encryption keys / BYOK: not documented for Oman — answer **I don't know the answer** unless separately confirmed
 
-Until those are added under `omn/`, do not invent values and do not copy UAE-only residency matrices.
+## Detailed sections
+
+- `authentication-iam.md` — authentication, sessions, passwords, MFA, LDAP
+- `application-security.md` — OWASP secure coding, crypto, data protection, VAPT
+- `api-security.md` — OWASP API Security Top 10 (2023)
+
+Do not copy UAE-only residency matrices (Abu Dhabi / Mumbai / Singapore) into Oman answers unless separately confirmed for Oman.
