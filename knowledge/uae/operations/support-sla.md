@@ -51,8 +51,16 @@ Targets may vary with third-party / regulatory authority dependencies.
 - Planned windows communicated in advance; rolling deployments where possible
 - Planned downtime ~**1 min / week** (implementation questionnaire)
 - Emergency security updates may run outside windows after internal validation/risk assessment
+- SaaS upgrades centrally managed (customers do not manually upgrade)
+
+## Availability & credits
+
+- Target availability **99.9%** excluding scheduled maintenance (some questionnaires state 99.99% — see conflicts)
+- Service credits for missed contractual SLAs: definable in the commercial agreement
+- SLA priority bands commonly described as High / Medium / Low in enterprise demographics responses
 
 ## Communication & reporting
 
 Customers/partners informed of: incident ack/progress/workarounds/resolution; planned maintenance; releases; security advisories; regulatory updates; RCA for major incidents.  
 Operational reporting may include incident stats, SLA achievement, availability, capacity, security/maintenance/release summaries.
+Security/platform monitoring alerts are managed internally; customers are notified for incidents that impact availability or security.

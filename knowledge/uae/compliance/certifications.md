@@ -22,11 +22,15 @@
 
 - ISO 9001 — N (managed under internal QMS; certification not claimed)
 - ISO/IEC 20000-1 — N (processes implemented; certification not claimed)
-- SOC 1 — N / Not applicable
+- SOC 1 — N / Not applicable (SSAE18 / SOC 2 Type II is the attested report)
+- PCI DSS / PCI PTS / PCI PA-DSS — N / **not applicable** (platform does not process or store cardholder data in standard e-invoicing SaaS)
 - UAE ADISS — N
 - UAE IAR — N (narrative may say architecture supports alignment; questionnaire marked N)
+- ISO 20022 and similar “other” national/international standards — N unless separately scoped
 
 ## Regulatory product alignment
 
 - UAE FTA e-invoicing requirements; Peppol / OpenPeppol / PINT updates monitored and released before enforcement dates
+- Out-of-the-box handling of regional e-invoicing regulatory changes (schemas, validation rules, authority integrations) via controlled SaaS product updates
 - AMC includes ongoing regulatory changes, schema/tax authority integration updates
+- Security compliance expectations (encryption, access control, audit logging, monitoring) built into the platform baseline

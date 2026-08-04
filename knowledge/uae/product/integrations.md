@@ -57,9 +57,27 @@ Data types processed: invoice data; tax/compliance information; customer and sup
 ## Message formats
 
 - JSON for API integrations
-- XLSX for file-based exchange
+- XLSX for file-based exchange / bulk import-export / historical load
 - PINT XML validation referenced in release/sandbox testing
 - Cryptographically signed XML payloads referenced in exit/handover process
+- EDI / SWIFT / flat-file native middleware formats: **not** part of the standard SaaS integration layer (use customer middleware if needed)
+
+## Inbound / outbound patterns
+
+- **Inbound:** API invoice submission, document uploads, data synchronization, webhook callbacks
+- **Outbound:** API retrieval, webhooks, file-based exports (XLSX / SFTP where configured)
+- Standard API integrations included in SaaS; complex/custom integrations may need additional implementation services
+- Customers can build their own services/workflows on exposed APIs; custom APIs beyond the standard set may be PaaS/custom development
+- Reasonable API rate limits / throttling applied for stability; higher throughput by arrangement
+- **Not standard SaaS:** direct database-format dumps or automated SFTP database exports
+
+## Production-to-test (P2T)
+
+Controlled P2T data copies via database export/import or backup restore into non-production, managed by the Service Provider. Masking/anonymization can be applied when production-like data is used in test (may involve separate commercials).
+
+## Commercial extras (typically outside standard SaaS)
+
+Separate commercials often apply for: IPSec VPN setup/subscription; dedicated private connectivity / partner links; storage/compute beyond normal usage; customer encryption-key management services; production-data encryption/masking for test; OAuth identity-service enablement beyond native JWT/API keys. User authentication/authorization and social-ID arrangements: no separate charge for social ID (social login is not offered).
 
 ## SIEM / PAM (enterprise proposals)
 

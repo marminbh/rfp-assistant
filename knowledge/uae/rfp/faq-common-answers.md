@@ -22,17 +22,15 @@ Use with `conflicts-and-caveats.md` before locking numbers.
 - Dedicated single-tenant available commercially.
 - Multi-entity in one organization instance: Yes.
 
-## RPO / RTO (pick carefully)
+## RPO / RTO
 
-Common UAE SaaS answer set:
+**Canonical UAE SaaS answer:**
 
-- RTO ≤ 1 hour; RPO near-zero / no data loss for committed transactions; DR tested quarterly.
+- **RPO:** **0** (no data loss)
+- **RTO:** **1 hour**
+- DR tested quarterly
 
-Alternate conservative annexure answer:
-
-- RTO ≤ 4 hours; RPO ≤ 1 hour; backup/restore DR.
-
-Questionnaire variant: RPO <15 min; RTO <1 hr.
+Do not use older annexure figures (e.g. RTO ≤4 hours / RPO ≤1 hour) unless a bid owner explicitly overrides.
 
 ## Backups
 
@@ -64,7 +62,10 @@ ISO 27001 / ISO 27001:2022; SOC 2 Type II; GDPR.
 
 ## Integrations
 
-- API (documented), SFTP bulk, WebApp, AI PDF extraction, middleware platforms: Yes.
+- API (documented), SFTP bulk, WebApp, AI PDF extraction, customer middleware via REST/HTTPS: Yes.
+- No dedicated low-code middleware or predefined ERP connectors in standard SaaS.
+- Formats: JSON APIs; XLSX file exchange; PINT XML for e-invoice payloads.
+- VPN / dedicated private connectivity: available for enterprise; usually separate commercials.
 - Docs: https://docs.ae.marmin.ai/
 
 ## Exit
@@ -74,9 +75,11 @@ Full extraction (XML, PDF, CSV/XLSX, structured dumps), SFTP delivery, certified
 ## Implementation / company
 
 - Timeline: 2–6 weeks typical, or up to ~4 months for larger enterprise plans.
+- Delivery by Principal; Agile; hybrid training.
 - Local team: Dubai; also Bangalore development/support.
-- Employees: 100+.
+- Employees: 100+; similar implementations >500.
 - Support by Principal; portal https://marmin.ai.
+- Mobile app: not in standard offering (browser access).
 
 ## Incidents (recent enterprise cloud response)
 

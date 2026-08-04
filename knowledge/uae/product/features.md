@@ -7,6 +7,8 @@
 - **Flexible bulk upload:** Marmin-standard Excel templates or customized user templates (mandatory data points mapped).
 - **Non-e-invoice registry:** Upload and manage historical or non-e-invoiced transactions for holistic tax reporting.
 - **VAT return automation:** Automated VAT returns from e-invoiced data, or combination of non-e-invoice and e-invoiced records.
+- **VAT reconciliation engine:** Supported for FTA-compliant UAE e-invoicing scenarios.
+- **FTA-compliant UAE e-invoicing:** Supported; high scalability and reliability for SaaS delivery.
 - **Regulatory archiving:** Secure, tamper-proof storage of e-documents for the legally required period.
   - Feature list states **6-year** archiving.
   - Retention matrix / questionnaires state **5 years** for tax invoices / processing metadata / audit trail (see `rfp/conflicts-and-caveats.md`).

@@ -40,7 +40,15 @@
 
 **RFP guidance:** Do not assert SSO/SAML/OIDC as generally available without confirming current release status. Prefer “native email/password + email OTP MFA; enterprise IdP federation on roadmap / can be built” unless using the Security Overview wording intentionally for a specific bid.
 
+## User provisioning
+
+- Accounts created by organization administrators or via platform registration with **email verification**
+- Customer admins manage users/roles within their tenant; platform identity store is application-native (no sync down to on-prem AD)
+
 ## Explicit non-support (standard SaaS)
 
-- Social ID login
+- Social ID login (Google/Facebook/etc.)
+- Active Directory / ADFS / Azure AD / SCIM provisioning (enterprise SaaS annexure: **N**)
+- SAML 2.0 federation (enterprise SaaS annexure: **N**)
+- On-prem IDP sync components in customer DMZ (not required — IdP integration not implemented)
 - Third-party MFA providers (email OTP included; third-party MFA = separate commercials if required)

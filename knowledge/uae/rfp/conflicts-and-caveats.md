@@ -15,17 +15,18 @@ Resolve with product/security ownership before RFP submission. Sources below are
 - Backup & restore in-region only; no warm/hot/cross-cloud as standard (enterprise SaaS annexure)
 - Always-on hot standby at secondary UAE DC (hybrid enterprise design)
 
-## 3. RTO / RPO matrix
+## 3. RTO / RPO
+
+**Resolved for UAE SaaS:** **RPO 0** (no data loss); **RTO 1 hour**.
+
+Historical variants (do not use as default):
 
 | Source | RTO | RPO |
 |---|---|---|
-| BC/DR overview | ≤1 hr | No data loss |
-| Data residency / recovery matrix | ≤1 hr (often ~15 min internal) | Near zero |
-| Implementation questionnaire | <1 hr | <15 min |
+| Enterprise SaaS annexure | ≤4 hr | ≤1 hr |
 | Security overview platform | 15 min | 1 hr |
 | Security overview system | 1 hr | 15 min |
-| Enterprise SaaS annexure | ≤4 hr | ≤1 hr |
-| Enterprise cloud tech (unplanned DR) | <120 min | <15 min |
+| Implementation questionnaire | <1 hr | <15 min |
 | DR Plan full platform | 45–60 min | ~1 min |
 | DR Plan annual success criteria | <6 hr | ≤4 hr |
 | Hybrid hot standby design | <20 min | Near-zero |
@@ -44,7 +45,7 @@ Fully implemented (Security Overview) vs not available / under development (auth
 
 ## 7. BYOK / customer-managed keys
 
-**Resolved:** Customer-managed encryption keys (BYOK) are **not allowed**. Keys are Marmin-managed via KMS only. Earlier annexure wording that suggested OCI customer-managed keys is superseded.
+**Resolved:** Customer-managed encryption keys (BYOK) are **not allowed**. Keys are Marmin-managed via KMS only. Earlier annexure wording that suggested OCI customer-managed keys (or “can be supported through cloud KMS”) is superseded — do not offer BYOK.
 
 ## 8. Implementation timeline
 

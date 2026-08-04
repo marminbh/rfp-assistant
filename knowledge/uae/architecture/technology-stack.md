@@ -38,6 +38,11 @@ Also cited: Golang 1.25 and Java 25 LTS; TLS 1.2 or higher.
 - Load balancer: OCI Managed LB
 - Object/backup storage: OCI Object Storage
 
+**DR / backup (managed)**
+
+- Backup infrastructure: managed cloud / OCI Block + Object Storage for DR restoration
+- Database backup storage: managed OCI Object Storage with retention per operational policy
+
 **TDL / test**
 
 - App test env: 2 × 4 vCPU / 16 GB
