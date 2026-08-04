@@ -5,10 +5,17 @@ const sendBtn = document.getElementById("sendBtn");
 const reindexBtn = document.getElementById("reindexBtn");
 const statusEl = document.getElementById("status");
 const providerBadge = document.getElementById("providerBadge");
+const marketSelect = document.getElementById("marketSelect");
 
 /** @type {{role: string, content: string}[]} */
 let history = [];
 let busy = false;
+
+const MARKET_LABELS = { uae: "UAE", omn: "OMN" };
+
+function currentMarket() {
+  return marketSelect.value === "omn" ? "omn" : "uae";
+}
 
 function setStatus(text, isError = false) {
   statusEl.textContent = text || "";
@@ -20,8 +27,7 @@ function ensureEmptyState() {
     const empty = document.createElement("div");
     empty.className = "empty";
     empty.id = "emptyState";
-    empty.textContent =
-      "Ask about UAE e-invoicing capabilities, Peppol, APIs, or RFP response guidance.";
+    empty.textContent = `Ask an RFP question about ${MARKET_LABELS[currentMarket()]} e-invoicing.`;
     messagesEl.appendChild(empty);
   }
 }
@@ -29,6 +35,13 @@ function ensureEmptyState() {
 function clearEmptyState() {
   const empty = document.getElementById("emptyState");
   if (empty) empty.remove();
+}
+
+function resetConversation() {
+  history = [];
+  messagesEl.innerHTML = "";
+  ensureEmptyState();
+  input.placeholder = `Ask an RFP question about ${MARKET_LABELS[currentMarket()]} e-invoicing…`;
 }
 
 function appendMessage(role, content = "") {
@@ -50,9 +63,10 @@ function renderSources(messageEl, sources) {
   const list = document.createElement("ul");
   for (const source of sources) {
     const item = document.createElement("li");
+    const marketPrefix = source.market ? `[${source.market}] ` : "";
     item.textContent = source.section_title
-      ? `${source.path} — ${source.section_title}`
-      : source.path;
+      ? `${marketPrefix}${source.path} — ${source.section_title}`
+      : `${marketPrefix}${source.path}`;
     list.appendChild(item);
   }
   box.appendChild(label);
@@ -60,10 +74,6 @@ function renderSources(messageEl, sources) {
   messageEl.appendChild(box);
 }
 
-/**
- * Parse SSE chunks. Handles both LF and CRLF framing from EventSourceResponse.
- * Returns { events, rest } where rest is an incomplete trailing frame.
- */
 function parseSse(buffer) {
   const normalized = buffer.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
   const parts = normalized.split("\n\n");
@@ -78,7 +88,6 @@ function parseSse(buffer) {
       if (line.startsWith("event:")) {
         event = line.slice(6).trim();
       } else if (line.startsWith("data:")) {
-        // Keep a single leading space trim only (SSE allows optional space after data:)
         let value = line.slice(5);
         if (value.startsWith(" ")) value = value.slice(1);
         dataLines.push(value);
@@ -96,7 +105,10 @@ async function refreshHealth() {
     const res = await fetch("/api/health");
     const data = await res.json();
     const docs = data.document_count ?? 0;
-    providerBadge.textContent = `${data.provider} · ${data.chat_model} · ${docs} chunks`;
+    const counts = data.market_counts || {};
+    const market = currentMarket();
+    const marketDocs = (counts[market] || 0) + (counts.shared || 0);
+    providerBadge.textContent = `${MARKET_LABELS[market]} · ${data.provider} · ${marketDocs}/${docs} chunks`;
     if (!data.kb_exists) {
       setStatus("Knowledge folder not found.", true);
     } else if (docs === 0) {
@@ -152,7 +164,11 @@ async function sendMessage(text) {
         "Content-Type": "application/json",
         Accept: "text/event-stream",
       },
-      body: JSON.stringify({ message: text, history }),
+      body: JSON.stringify({
+        message: text,
+        history,
+        market: currentMarket(),
+      }),
     });
 
     if (!res.ok) {
@@ -197,7 +213,6 @@ async function sendMessage(text) {
       }
     }
 
-    // Flush any final frame that lacked a trailing blank line
     if (buffer.trim()) {
       const parsed = parseSse(buffer + "\n\n");
       for (const item of parsed.events) {
@@ -248,6 +263,11 @@ input.addEventListener("keydown", (event) => {
     event.preventDefault();
     form.requestSubmit();
   }
+});
+
+marketSelect.addEventListener("change", () => {
+  resetConversation();
+  refreshHealth();
 });
 
 reindexBtn.addEventListener("click", reindex);

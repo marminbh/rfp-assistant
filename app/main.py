@@ -9,15 +9,16 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.ingest import ingest_knowledge
+from app.markets import MARKETS, normalize_market
 from app.models import ChatRequest, HealthResponse, IngestResponse
 from app.providers.factory import build_provider
 from app.rag import chat_stream
-from app.store import collection_count
+from app.store import collection_count, market_counts
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT_DIR / "static"
 
-app = FastAPI(title="UAE E-Invoicing RFP Assistant", version="1.0.0")
+app = FastAPI(title="Marmin E-Invoicing RFP Assistant", version="1.1.0")
 
 
 @app.get("/api/health", response_model=HealthResponse)
@@ -35,8 +36,10 @@ async def health() -> HealthResponse:
     kb_exists = settings.kb_path.exists()
     try:
         doc_count = collection_count(settings)
+        counts = market_counts(settings)
     except Exception:  # noqa: BLE001
         doc_count = 0
+        counts = {}
 
     return HealthResponse(
         ok=provider_ok and kb_exists,
@@ -47,6 +50,8 @@ async def health() -> HealthResponse:
         kb_exists=kb_exists,
         collection=settings.collection_name,
         document_count=doc_count,
+        markets=list(MARKETS),
+        market_counts=counts,
         provider_health=provider_health,
     )
 
@@ -60,13 +65,17 @@ async def ingest() -> IngestResponse:
 
 
 def _sse(event: str, data: str) -> str:
-    # Use LF framing so browser parsers that split on "\n\n" work reliably.
     return f"event: {event}\ndata: {data}\n\n"
 
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest) -> StreamingResponse:
     settings = get_settings()
+    try:
+        market = normalize_market(request.market)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
     try:
         provider = build_provider(settings)
     except Exception as exc:  # noqa: BLE001
@@ -82,6 +91,7 @@ async def chat(request: ChatRequest) -> StreamingResponse:
         request.message,
         request.history,
         provider=provider,
+        market=market,
         settings=settings,
     )
 

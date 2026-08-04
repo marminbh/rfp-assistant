@@ -5,12 +5,14 @@ from pathlib import Path
 
 from app.chunking import chunk_markdown, iter_knowledge_files
 from app.config import Settings, get_settings
+from app.markets import market_from_source_path
 from app.models import IngestResponse
 from app.providers.factory import build_provider
 from app.store import (
     delete_by_source_paths,
     existing_file_hashes,
     get_collection,
+    market_counts,
     upsert_chunks,
 )
 
@@ -43,6 +45,7 @@ async def ingest_knowledge(settings: Settings | None = None) -> IngestResponse:
     for file_path in files:
         relative = str(file_path.relative_to(kb_path)).replace("\\", "/")
         seen_paths.add(relative)
+        market = market_from_source_path(relative)
         content = file_path.read_text(encoding="utf-8")
         chunks = chunk_markdown(
             content,
@@ -73,6 +76,7 @@ async def ingest_knowledge(settings: Settings | None = None) -> IngestResponse:
                     "section_title": c.section_title,
                     "file_hash": c.file_hash,
                     "provider": settings.llm_provider,
+                    "market": market,
                 }
                 for c in chunks
             ],
@@ -83,6 +87,8 @@ async def ingest_knowledge(settings: Settings | None = None) -> IngestResponse:
     stale_paths = [path for path in current_hashes if path not in seen_paths]
     chunks_removed += delete_by_source_paths(collection, stale_paths)
 
+    counts = market_counts(settings)
+
     return IngestResponse(
         ok=True,
         provider=settings.llm_provider,
@@ -91,9 +97,11 @@ async def ingest_knowledge(settings: Settings | None = None) -> IngestResponse:
         files_indexed=files_indexed,
         chunks_upserted=chunks_upserted,
         chunks_removed=chunks_removed,
+        market_counts=counts,
         message=(
             f"Indexed {files_indexed} changed file(s); "
-            f"upserted {chunks_upserted} chunk(s); removed {chunks_removed} stale chunk(s)."
+            f"upserted {chunks_upserted} chunk(s); removed {chunks_removed} stale chunk(s). "
+            f"Markets: {counts}."
         ),
     )
 

@@ -1,11 +1,11 @@
 # UAE E-Invoicing RFP Assistant
 
-Local RAG chatbot for RFP questions about Marmin’s UAE e-invoicing solution.
+Local RAG chatbot for RFP questions about Marmin’s **UAE** and **OMN** e-invoicing solutions.
 
-- Knowledge base: in-repo [`knowledge/`](knowledge/)
+- Knowledge base: in-repo [`knowledge/`](knowledge/) segregated as `uae/`, `omn/`, and `shared/`
 - Default LLM: **Ollama** (local chat + embeddings)
 - Optional: **Gemini** via `LLM_PROVIDER=gemini`
-- UI: simple web chat at `http://localhost:8000`
+- UI: simple web chat with market selector at `http://127.0.0.1:8787`
 
 ## Prerequisites
 
@@ -68,7 +68,16 @@ Edit markdown under `knowledge/`, then re-index from the UI (**Re-index knowledg
 python -m app.ingest
 ```
 
-Ingest is incremental (file content hash). Answers cite source file paths and stay grounded in retrieved context.
+Ingest is incremental (file content hash). Each chunk is tagged with `market` (`uae`, `omn`, or `shared`). Chat retrieval is filtered to the selected market plus `shared`.
+
+### Knowledge layout
+
+```text
+knowledge/
+  uae/       # UAE-only RFP content
+  omn/       # Oman-only RFP content
+  shared/    # Company-wide facts for both markets
+```
 
 ## API
 

@@ -1,19 +1,21 @@
-# UAE E-Invoicing Knowledge Base
+# RFP Knowledge Base
 
-Structured markdown for the RFP Assistant, enriched from Marmin RFP/security/ops source documents.
+Market-segregated markdown for the RFP Assistant.
 
 ## Layout
 
-| Folder | Contents |
-|--------|----------|
-| `product/` | Overview, features, integrations |
-| `architecture/` | Cloud architecture, stack, tenancy |
-| `deployment/` | Deployment options, hybrid/on-prem, exit |
-| `security/` | Controls, IAM, encryption, app checklist |
-| `compliance/` | Certifications, residency/retention, shared responsibility |
-| `operations/` | Support/SLA, releases, monitoring, BC/DR |
-| `rfp/` | FAQ, conflicts/caveats, company demographics |
+| Path | Market | Purpose |
+|------|--------|---------|
+| `uae/` | UAE | UAE e-invoicing RFP knowledge |
+| `omn/` | OMN | Oman e-invoicing RFP knowledge |
+| `shared/` | Both | Company-wide facts used for either market |
 
-After edits, re-index: `python -m app.ingest` or use **Re-index** in the UI.
+Ingest tags each file with `market` from the top-level folder (`uae`, `omn`, or `shared`). Chat retrieval is filtered to the selected market plus `shared`.
 
-**Important:** Before locking RFP numbers, read `rfp/conflicts-and-caveats.md`.
+After edits:
+
+```bash
+python -m app.ingest
+```
+
+Or use **Re-index** in the UI.

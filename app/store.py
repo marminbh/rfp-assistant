@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,17 @@ def get_collection(settings: Settings | None = None) -> Collection:
 
 def collection_count(settings: Settings | None = None) -> int:
     return get_collection(settings).count()
+
+
+def market_counts(settings: Settings | None = None) -> dict[str, int]:
+    collection = get_collection(settings)
+    data = collection.get(include=["metadatas"])
+    counter: Counter[str] = Counter()
+    for metadata in data.get("metadatas") or []:
+        if not metadata:
+            continue
+        counter[str(metadata.get("market") or "unknown")] += 1
+    return dict(sorted(counter.items()))
 
 
 def existing_file_hashes(collection: Collection) -> dict[str, str]:

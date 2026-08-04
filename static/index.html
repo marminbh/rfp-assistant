@@ -11,9 +11,16 @@
       <header class="header">
         <div>
           <h1>RFP Assistant</h1>
-          <p class="subtitle">UAE e-invoicing knowledge Q&amp;A</p>
+          <p class="subtitle">UAE &amp; OMN e-invoicing knowledge Q&amp;A</p>
         </div>
         <div class="header-actions">
+          <label class="market-picker">
+            Market
+            <select id="marketSelect" aria-label="Market">
+              <option value="uae" selected>UAE</option>
+              <option value="omn">OMN</option>
+            </select>
+          </label>
           <span id="providerBadge" class="badge">…</span>
           <button id="reindexBtn" type="button" class="secondary">Re-index knowledge base</button>
         </div>
@@ -26,7 +33,7 @@
           <textarea
             id="messageInput"
             rows="2"
-            placeholder="Ask an RFP question about UAE e-invoicing…"
+            placeholder="Ask an RFP question…"
             required
           ></textarea>
           <button id="sendBtn" type="submit">Send</button>

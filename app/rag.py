@@ -3,11 +3,12 @@ from __future__ import annotations
 from collections.abc import AsyncIterator
 
 from app.config import Settings, get_settings
+from app.markets import MARKET_LABELS, Market
 from app.models import ChatHistoryMessage, Source
 from app.providers.base import ChatMessage, LLMProvider
 from app.retriever import RetrievedChunk, retrieve
 
-SYSTEM_PROMPT = """You are Marmin's UAE e-invoicing RFP assistant. Answer as a knowledgeable product expert.
+SYSTEM_PROMPT_TEMPLATE = """You are Marmin's {market_label} e-invoicing RFP assistant. Answer as a knowledgeable product expert for the {market_label} market only.
 
 Tone:
 - Sound confident and direct. State facts as facts.
@@ -18,6 +19,7 @@ Answering:
 - Ground every claim in the supplied reference material. Prefer concrete details (protocols, algorithms, SLAs, RTO/RPO, processes).
 - If the reference material supports the answer, give a clear RFP-ready response.
 - If it does not contain the answer, say exactly: "I don't know the answer." Do not speculate or invent features, compliance claims, or legal advice.
+- Do not use facts from another market. Stay within {market_label} (+ shared company facts when present).
 - Keep answers concise and professional.
 - You may cite source file paths when helpful, without framing them as "according to context".
 - Ignore earlier assistant refusals if the current reference material has the answer.
@@ -40,7 +42,7 @@ def build_context(chunks: list[RetrievedChunk]) -> str:
     for i, chunk in enumerate(chunks, start=1):
         title = chunk.section_title or "Section"
         parts.append(
-            f"[{i}] Source: {chunk.source_path} | {title}\n{chunk.text}"
+            f"[{i}] Market: {chunk.market} | Source: {chunk.source_path} | {title}\n{chunk.text}"
         )
     return "\n\n---\n\n".join(parts)
 
@@ -54,7 +56,11 @@ def unique_sources(chunks: list[RetrievedChunk]) -> list[Source]:
             continue
         seen.add(key)
         sources.append(
-            Source(path=chunk.source_path, section_title=chunk.section_title or None)
+            Source(
+                path=chunk.source_path,
+                section_title=chunk.section_title or None,
+                market=chunk.market,
+            )
         )
     return sources
 
@@ -69,18 +75,24 @@ async def chat_stream(
     history: list[ChatHistoryMessage],
     *,
     provider: LLMProvider,
+    market: Market,
     settings: Settings | None = None,
 ) -> tuple[list[Source], AsyncIterator[str]]:
     settings = settings or get_settings()
-    chunks = await retrieve(message, provider=provider, settings=settings)
+    chunks = await retrieve(
+        message, provider=provider, market=market, settings=settings
+    )
     sources = unique_sources(chunks)
     context = build_context(chunks)
+    market_label = MARKET_LABELS[market]
 
     messages: list[ChatMessage] = [
-        ChatMessage(role="system", content=SYSTEM_PROMPT),
+        ChatMessage(
+            role="system",
+            content=SYSTEM_PROMPT_TEMPLATE.format(market_label=market_label),
+        ),
     ]
 
-    # Keep a short conversation window; drop prior refusals so they don't poison answers
     for item in history[-8:]:
         if item.role not in {"user", "assistant"} or not item.content.strip():
             continue
@@ -88,11 +100,11 @@ async def chat_stream(
             continue
         messages.append(ChatMessage(role=item.role, content=item.content))
 
-    # Put reference material with the user turn — more reliable for local models than a 2nd system message
     user_prompt = (
+        f"Active market: {market_label}\n\n"
         f"Reference material (internal — do not mention this label in your reply):\n\n{context}\n\n"
         f"Question: {message}\n\n"
-        "Answer confidently from the reference material. "
+        f"Answer confidently for the {market_label} market from the reference material. "
         "Do not say 'according to the context' or similar. "
         "If the material does not contain the answer, reply: I don't know the answer."
     )

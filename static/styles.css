@@ -69,6 +69,23 @@ body {
   justify-content: flex-end;
 }
 
+.market-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.market-picker select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  padding: 0.4rem 0.55rem;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
