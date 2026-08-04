@@ -23,10 +23,15 @@ Marmin Oman e-invoicing supports electronic invoice exchange using Peppol-orient
 ## Privacy & regulatory compliance
 
 - Compliance with **Oman Personal Data Protection Law (PDPL)**
+- Data privacy framework and controls aligned with industry best practices (e.g. GDPR-style controls where relevant)
 - Retain records per regulatory retention requirements
 - Regulatory reporting obligations supported
 - Support for **CBO** outsourcing / regulatory documentation needs (approvals, registers, incident reporting)
 - Data protection posture also references **PCI-DSS** and banking secrecy obligations where applicable to the engagement
+- Sensitive customer data must not leave the approved customer network/cloud without exception approval
+- On-premise deployments can be delivered without mandatory cloud components (hybrid cloud connectivity only when approved)
+- S-SDLC, independent security assessments, vulnerability SLAs, and Threat Advisories supported as product-security assurance
+
 
 ## Data rules
 

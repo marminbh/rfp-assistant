@@ -38,6 +38,7 @@
 
 - Standard reports for platform functions
 - Reports available in CSV / XLSX
+- Broader export formats (PDF, DOC, XML) for some report types: **partial** — confirm per engagement
 - Rich graphical display (pie, bar, and similar charts)
 - Role-based dashboards with user-driven parameterization
 - End-user authored report builder / publish/schedule own reports: not supported

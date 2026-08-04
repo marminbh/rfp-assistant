@@ -2,11 +2,12 @@
 
 ## High-level components
 
+- **API gateway:** Kong Gateway for authenticated/authorized API access and policy enforcement
 - **API layer:** REST services for documents, parties, auth, and Peppol status
 - **UI:** Business-user console for invoice operations (Edge / Chrome)
 - **Document services:** Create, validate, store, and transform invoice payloads
 - **Network connector:** Peppol Access Point / OTA-approved ASP path for submit and receive
-- **Supporting services:** Auth, audit, codelists (including OMN subdivisions), partner management, messaging, cache
+- **Supporting services:** Auth, audit, codelists (including OMN subdivisions), partner management, messaging, cache, secrets management
 
 ## Architecture principles
 

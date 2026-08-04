@@ -4,6 +4,15 @@ Aligned to **OWASP API Security Top 10 (2023)**. Complements application securit
 
 Unless noted, controls below are supported in the base package.
 
+## API gateway
+
+- **Kong API Gateway** provides authenticated and authorized API access, centralized policy enforcement, traffic management, and a single entry point
+- Gateway supports caching and rate-limit policies (quota, spike arrest, concurrent limits)
+- No Basic or Digest authentication for internal or external API integrations
+- Secrets, API keys, and tokens never hardcoded or exposed in URLs — use Authorization headers
+- For APIs exposed to third parties: opaque tokens preferred over JWT
+- Tokens and API keys scoped least-privilege per integration client; strict isolation between clients
+
 ## API1 — Broken Object Level Authorization (BOLA)
 
 - Enforce object-level authorization on every request that accesses an object by identifier
